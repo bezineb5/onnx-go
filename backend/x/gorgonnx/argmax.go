@@ -80,7 +80,6 @@ func (op argmaxOp) Do(inputs ...gorgonia.Value) (retVal gorgonia.Value, err erro
 	case *tensor.Dense:
 		var ret *tensor.Dense
 		if ret, err = t.Argmax(op.along); err == nil {
-			fmt.Printf("Inference output: %#v\n", ret)
 			if ret.IsScalar() {
 				retVal = NewI64(int64(ret.ScalarValue().(int)))
 			} else {
@@ -102,7 +101,7 @@ func (op argmaxOp) Do(inputs ...gorgonia.Value) (retVal gorgonia.Value, err erro
 			return nil, errors.Wrap(err, "failed to apply *tensor.Dense.Argmax()")
 		}
 	default:
-		return nil, errors.Errorf("Argmax only support tensor.Dense")
+		return nil, errors.Errorf("ArgMax only support tensor.Dense")
 	}
 	return
 }
